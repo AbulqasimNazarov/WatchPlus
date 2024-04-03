@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WatchPlusApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e0f23497064438343761dbc81ab8b97f984ecb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66e2f5d5e3332a4d5e87475ded103cb037ad7b4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("WatchPlusApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WatchPlusApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
