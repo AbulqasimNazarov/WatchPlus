@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text;
 using WatchPlusApp.Models;
 using WatchPlusApp.Repositories;
 
@@ -8,6 +9,14 @@ var prexif = "http://*:8080/";
 httpListener.Prefixes.Add(prexif);
 
 httpListener.Start();
+
+
+var htmlTemplate = @"<div>
+    <p><i>Name: </i>{{name}}</p>
+    <p><i>Rate: </i>{{rate}}</p>    
+</div>";
+
+
 
 System.Console.WriteLine($"Server started... {prexif.Replace("*", "localhost")}");
 System.Collections.ObjectModel.ObservableCollection<Films> filmList = new System.Collections.ObjectModel.ObservableCollection<Films>();
@@ -19,8 +28,11 @@ while (true)
     {
         case "/":
             {
+                var html = await File.ReadAllTextAsync("Views/index.html");
 
+                using var stream = new StreamWriter(client.Response.OutputStream);
 
+                await stream.WriteLineAsync(html);
 
 
                 break;
@@ -30,17 +42,23 @@ while (true)
         case "/home":
             {
 
+
                 var repository = new FilmsRepository();
                 var data = repository.GetAll();
-                var html = await File.ReadAllTextAsync("Views/index.html");
+                StringBuilder sb = new StringBuilder(htmlTemplate.Length * data.Count());
                 foreach (var item in data)
                 {
-                    html = html.Replace("{{Name}}", item.Name).Replace("{{Rate}}", item.Rate);
+                    var html = htmlTemplate
+                               .Replace("{{name}}", item.Name)
+                               .Replace("{{rate}}", item.Rate);
+                    //var html = await File.ReadAllTextAsync("Views/index.html");
+                    sb.Append(html);
                 }
                 client.Response.ContentType = "text/html";
                 using var stream = new StreamWriter(client.Response.OutputStream);
 
-                await stream.WriteLineAsync(html);
+                await stream.WriteLineAsync(sb);
+                client.Response.StatusCode = (int)HttpStatusCode.OK;
 
                 break;
             }
