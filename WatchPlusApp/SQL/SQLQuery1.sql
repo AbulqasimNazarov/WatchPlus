@@ -9,6 +9,7 @@ create table Films(
 )
 
 insert into Films([Name], [Rate])
-values ('X-Man', 'Good')
+values ('THOR', 'Very good'),
+		('Kingsman', 'Very good')
 
 select * from Films

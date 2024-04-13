@@ -11,11 +11,41 @@ httpListener.Prefixes.Add(prexif);
 httpListener.Start();
 
 
-var htmlTemplate = @"<div>
-    <p><i>Name: </i>{{name}}</p>
-    <p><i>Rate: </i>{{rate}}</p>    
-</div>";
 
+async Task WriteViewAsync(HttpListenerResponse response, string viewName, Dictionary<string, object>? viewValues = null)
+{
+    response.ContentType = "text/html";
+    using var stream = new StreamWriter(response.OutputStream);
+    var html = await File.ReadAllTextAsync($"{viewName}.html");
+    if (viewValues is not null)
+    {
+        foreach (var viewValue in viewValues)
+        {
+            html = html.Replace("{{" + viewValue.Key + "}}", viewValue.Value.ToString());
+        }
+    }
+    await stream.WriteLineAsync(html);
+    response.StatusCode = (int)HttpStatusCode.OK;
+}
+
+string GetCollectionsAsHtml<T>(IEnumerable<T> collection)
+{
+    Type type = typeof(T);
+    var props = type.GetProperties();
+    var sb = new StringBuilder();
+
+    foreach (var item in collection)
+    {
+        sb.Append("<div>");
+        foreach (var prop in props)
+        {
+            sb.Append($"<p><i>{nameof(prop.Name)}: </i>{prop.GetValue(item)}</p>");
+
+        }
+        sb.Append("</div>");
+    }
+    return sb.ToString();
+}
 
 
 System.Console.WriteLine($"Server started... {prexif.Replace("*", "localhost")}");
@@ -28,37 +58,21 @@ while (true)
     {
         case "/":
             {
-                var html = await File.ReadAllTextAsync("Views/index.html");
-
-                using var stream = new StreamWriter(client.Response.OutputStream);
-
-                await stream.WriteLineAsync(html);
+                await WriteViewAsync(client.Response, "Views/index");
 
 
                 break;
             }
 
 
-        case "/home":
+        case "/films":
             {
-
-
                 var repository = new FilmsRepository();
                 var data = repository.GetAll();
-                StringBuilder sb = new StringBuilder(htmlTemplate.Length * data.Count());
-                foreach (var item in data)
-                {
-                    var html = htmlTemplate
-                               .Replace("{{name}}", item.Name)
-                               .Replace("{{rate}}", item.Rate);
-                    //var html = await File.ReadAllTextAsync("Views/index.html");
-                    sb.Append(html);
-                }
-                client.Response.ContentType = "text/html";
-                using var stream = new StreamWriter(client.Response.OutputStream);
-
-                await stream.WriteLineAsync(sb);
-                client.Response.StatusCode = (int)HttpStatusCode.OK;
+                var html = GetCollectionsAsHtml<Films>(data);
+                await WriteViewAsync(client.Response, "Views/films", new(){
+                    {"body", html},
+                });
 
                 break;
             }
@@ -66,10 +80,7 @@ while (true)
 
         default:
             {
-                client.Response.ContentType = "text/html";
-                using var stream = new StreamWriter(client.Response.OutputStream);
-                var html = await File.ReadAllTextAsync("Views/errorPage.html");
-                await stream.WriteLineAsync(html);
+                await WriteViewAsync(client.Response, "Views/errorPage");
                 break;
             }
 
