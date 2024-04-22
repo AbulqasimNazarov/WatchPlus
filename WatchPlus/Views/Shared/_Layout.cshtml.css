@@ -1,6 +1,12 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+.container-fluid {
+  width: 1340px;
+  margin: 0 auto;
+}
+
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -9,7 +15,8 @@ a.navbar-brand {
 }
 
 .navbari {
-  color: #0077cc;
+  height: 60px;
+  width: 90px;
 }
 
 a {

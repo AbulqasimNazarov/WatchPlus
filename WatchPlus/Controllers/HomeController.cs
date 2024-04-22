@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using WatchPlus.Models;
 
@@ -13,9 +14,16 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+
+    [HttpGet]
+
     public IActionResult Index()
     {
-        return View();
+        var repoJson = new JsonRepository();
+
+        var films = repoJson.GetAll("./Files/films.json");
+
+        return View(films);
     }
 
     public IActionResult Privacy()
