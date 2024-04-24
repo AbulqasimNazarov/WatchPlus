@@ -45,28 +45,10 @@ public class FilmController : Controller
     // POST: /film
     public async Task<IActionResult> AddNewFilm(Film newFilm)
     {
-        
-        var filmJson = await System.IO.File.ReadAllTextAsync("Files/films.json");
 
-        var films = JsonSerializer.Deserialize<List<Film>>(filmJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-        });
-        if(films != null){
+        var repoJson = new JsonRepository();
 
-            if(newFilm.Id == 0){
-                newFilm.Id = films.Count + 1;
-            }
-        }
-
-        films?.Add(newFilm);
-
-        var resultFilmJson = JsonSerializer.Serialize<List<Film>>(films, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-        });
-
-        await System.IO.File.WriteAllTextAsync("Files/films.json", resultFilmJson);
+        repoJson.CreateFilm(newFilm);
 
         return base.RedirectToAction(actionName: "Index");
     }

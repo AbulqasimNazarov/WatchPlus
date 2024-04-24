@@ -7,7 +7,7 @@ public interface IFilmRepository
     
     public IEnumerable<Film>? GetAll(string path);
     
-    
+    public void CreateFilm(Film newFilm);
     
     
 }
