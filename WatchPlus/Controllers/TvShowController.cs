@@ -13,14 +13,13 @@ namespace WatchPlus.Controllers;
 public class TvShowController : Controller
 {
     private readonly ITvShowService tvShowService;
-    private readonly ITVShowRepository tvShowRepository;
+    
 
     public TvShowController(
-        ITvShowService tvShowService,
-        ITVShowRepository tvShowRepository)
+        ITvShowService tvShowService)
     {
 
-        this.tvShowRepository = tvShowRepository;
+        
         this.tvShowService = tvShowService;
     }
 

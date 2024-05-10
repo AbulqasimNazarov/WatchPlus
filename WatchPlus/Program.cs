@@ -1,3 +1,4 @@
+using ConfigurationApp.Options.Connections;
 using WatchPlus.Repositories;
 using WatchPlus.Repositories.Base;
 using WatchPlus.Services;
@@ -7,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var msSqlConnectionSection = builder.Configuration.GetSection("Connections")
+    .GetSection("MsSqlDb");
+
+builder.Services.Configure<MsSqlConnectionOptions>(msSqlConnectionSection);
+
 
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddTransient<IFilmRepository, FilmJsonFileRepository>();

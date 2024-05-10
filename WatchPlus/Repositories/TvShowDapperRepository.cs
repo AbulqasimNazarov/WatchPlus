@@ -1,5 +1,7 @@
 using System.Data.SqlClient;
+using ConfigurationApp.Options.Connections;
 using Dapper;
+using Microsoft.Extensions.Options;
 using WatchPlus.Models;
 using WatchPlus.Repositories.Base;
 
@@ -7,7 +9,11 @@ namespace WatchPlus.Repositories;
 
 public class TvShowDapperRepository : ITVShowRepository
 {
-    private const string connectionString = $"Server=localhost;Database=WatchPlusDB;Trusted_Connection=True;";
+    private readonly string connectionString;
+    public TvShowDapperRepository(IOptionsSnapshot<MsSqlConnectionOptions> msSqlConnectionOptions)
+    {
+        this.connectionString = msSqlConnectionOptions.Value.ConnectionString;
+    }
     public async Task CreatableAsync(TvSHow film)
     {
         using var connection = new SqlConnection(connectionString);

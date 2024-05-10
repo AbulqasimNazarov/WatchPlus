@@ -1,3 +1,6 @@
+#pragma warning disable CS8603
+
+
 using WatchPlus.Models;
 using WatchPlus.Repositories.Base;
 using WatchPlus.Services.Base;
@@ -18,6 +21,10 @@ public class TVShowService : ITvShowService
         await this.tvShowRepository.CreatableAsync(newTvShow);
     }
 
+
+    
+
+    
     public async Task<TvSHow> GetTvShowAsync(int id)
     {
         var tvShows = await this.tvShowRepository.GetAllAsync();
@@ -34,4 +41,8 @@ public class TVShowService : ITvShowService
         throw new Exception("Not Found");
     }
 
+    public async Task<IEnumerable<TvSHow>> GetTvShowsAsync()
+    {
+        return await this.tvShowRepository.GetAllAsync();
+    }
 }

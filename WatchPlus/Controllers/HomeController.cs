@@ -1,18 +1,26 @@
 using System.Diagnostics;
 using System.Text.Json;
+using ConfigurationApp.Options.Connections;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using WatchPlus.Models;
 using WatchPlus.Repositories;
+using WatchPlus.Repositories.Base;
+using WatchPlus.Services;
+using WatchPlus.Services.Base;
 
 namespace WatchPlus.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ITvShowService tvService;
+    private readonly MsSqlConnectionOptions tvShowSettings;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ITvShowService tvService, 
+        IOptions<MsSqlConnectionOptions> tvShowSettingsOptions)
     {
-        _logger = logger;
+        this.tvService = tvService;
+        this.tvShowSettings = tvShowSettingsOptions.Value;
     }
 
 
@@ -20,9 +28,9 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var repoJson = new TvShowDapperRepository();
+        //var service = new TVShowService();
 
-        var tv = await repoJson.GetAllAsync();
+        var tv = await tvService.GetTvShowsAsync();
 
         return View(tv);
     }

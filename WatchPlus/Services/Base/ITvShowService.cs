@@ -6,4 +6,5 @@ public interface ITvShowService
 {
     public Task CreateNewTvShowAsync(TvSHow newTvShow);
     public Task<TvSHow> GetTvShowAsync(int id);
+    public Task<IEnumerable<TvSHow>> GetTvShowsAsync();
 }
