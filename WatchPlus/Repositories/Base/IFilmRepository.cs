@@ -2,12 +2,8 @@ using WatchPlus.Models;
 
 namespace WatchPlus.Repositories.Base;
 
-public interface IFilmRepository
+public interface IFilmRepository : IGetableAsync<Film>, ICreatableAsync<Film>
 {
-    
-    public IEnumerable<Film>? GetAll(string path);
-    
-    
     
     
 }

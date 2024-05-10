@@ -4,30 +4,33 @@ using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using WatchPlus.Models;
+using WatchPlus.Repositories.Base;
+using WatchPlus.Services.Base;
 
 namespace WatchPlus.Controllers;
 
 // {controller=Home}/{action=Index}/{id?}
 public class FilmController : Controller
 {
+    private readonly IFilmService filmService;
+    private readonly IFilmRepository filmRepository;
+
+    public FilmController(
+        IFilmService filmService,
+        IFilmRepository filmRepository)
+    {
+
+        this.filmRepository = filmRepository;
+        this.filmService = filmService;
+    }
 
     [HttpGet]
     [Route("[controller]/{film.Name}/{id}")]
     public async Task<IActionResult> InfoAboutFilmAsync(int id)
     {
-        var repoJson = new JsonRepository();
+        var film = await filmService.GetFilmAsync(id);
 
-        var films = repoJson.GetAll("./Files/films.json");
-        if (films != null)
-        {
-            var film = films.FirstOrDefault(f => f.Id == id);
-            if (film != null)
-            {
-                return View(film);
-
-            }
-        }
-        return NotFound("Film not found");
+        return View(film);
 
     }
 
@@ -45,28 +48,8 @@ public class FilmController : Controller
     // POST: /film
     public async Task<IActionResult> AddNewFilm(Film newFilm)
     {
-        
-        var filmJson = await System.IO.File.ReadAllTextAsync("Files/films.json");
+        await filmService.CreateNewFilmAsync(newFilm);
 
-        var films = JsonSerializer.Deserialize<List<Film>>(filmJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-        });
-        if(films != null){
-
-            if(newFilm.Id == 0){
-                newFilm.Id = films.Count + 1;
-            }
-        }
-
-        films?.Add(newFilm);
-
-        var resultFilmJson = JsonSerializer.Serialize<List<Film>>(films, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-        });
-
-        await System.IO.File.WriteAllTextAsync("Files/films.json", resultFilmJson);
 
         return base.RedirectToAction(actionName: "Index");
     }

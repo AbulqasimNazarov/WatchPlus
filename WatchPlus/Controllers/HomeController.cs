@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using WatchPlus.Models;
+using WatchPlus.Repositories;
 
 namespace WatchPlus.Controllers;
 
@@ -17,13 +18,13 @@ public class HomeController : Controller
 
     [HttpGet]
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var repoJson = new JsonRepository();
+        var repoJson = new TvShowDapperRepository();
 
-        var films = repoJson.GetAll("./Files/films.json");
+        var tv = await repoJson.GetAllAsync();
 
-        return View(films);
+        return View(tv);
     }
 
     public IActionResult Privacy()
