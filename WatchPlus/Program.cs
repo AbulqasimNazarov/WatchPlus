@@ -1,4 +1,5 @@
 using ConfigurationApp.Options.Connections;
+using Microsoft.Extensions.Options;
 using WatchPlus.Repositories;
 using WatchPlus.Repositories.Base;
 using WatchPlus.Services;
@@ -15,11 +16,21 @@ var msSqlConnectionSection = builder.Configuration.GetSection("Connections")
 builder.Services.Configure<MsSqlConnectionOptions>(msSqlConnectionSection);
 
 
+
+
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddTransient<IFilmRepository, FilmJsonFileRepository>();
 
 builder.Services.AddScoped<ITvShowService, TVShowService>();
 builder.Services.AddTransient<ITVShowRepository, TvShowDapperRepository>();
+
+
+
+builder.Services.AddScoped<ITvShowService>((serviceProvider) => {
+    var serviceRepository = serviceProvider.GetRequiredService<ITVShowRepository>();
+
+    return new TVShowService(serviceRepository);
+});
 
 var app = builder.Build();
 

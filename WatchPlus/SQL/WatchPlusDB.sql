@@ -16,9 +16,7 @@ create table TVShows(
 drop table TVShows
 
 
-insert into TVShows ([Name], [Description], [Category], [Star], [Rate], [Image], [VideoTrailer]) 
-values ('Planet Earth II', 'David Attenborough returns with a new wildlife documentary that shows life in a variety of habitats.', 'TV Mini Series
-', 'David Attenborough', 'Good', '/Assets/IMG/planetEarth.jpg', 'https://www.youtube.com/embed/c8aFcHFu8QM');
+
 
 select * from TVShows
 
@@ -32,5 +30,13 @@ VALUES (
     'Good', 
     '/Assets/IMG/planetEarth.jpg', 
     'https://www.youtube.com/embed/c8aFcHFu8QM'
+),
+(
+    'Cosmos: A Spacetime Odyssey', 
+    'An exploration of our discovery of the laws of nature and coordinates in space and time.', 
+    'TV Mini Series', 
+    'Neil deGrasse Tyso', 
+    'Good', 
+    '/Assets/IMG/COSMOS.jpg', 
+    'https://www.youtube.com/embed/_erVOAbz420'
 );
-

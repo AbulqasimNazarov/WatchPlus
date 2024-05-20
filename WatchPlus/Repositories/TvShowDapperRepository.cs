@@ -23,6 +23,12 @@ public class TvShowDapperRepository : ITVShowRepository
             values (@Name, @Description, @Category, @Star, @Rate, @Image, @VideoTrailer)", film);
     }
 
+    public Task CreatableAsync(Film obj)
+    {
+        throw new NotImplementedException();
+    }
+
+
     public async Task<IEnumerable<TvSHow>?> GetAllAsync()
     {
         using var connection = new SqlConnection(connectionString);
@@ -30,4 +36,5 @@ public class TvShowDapperRepository : ITVShowRepository
         return await connection.QueryAsync<TvSHow>(@"select * from TVShows");
     }
 
+    
 }
