@@ -13,13 +13,13 @@ namespace WatchPlus.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ITvShowService tvService;
+    private readonly IFilmService filmService;
     private readonly MsSqlConnectionOptions tvShowSettings;
 
-    public HomeController(ITvShowService tvService, 
+    public HomeController(IFilmService filmService, 
         IOptions<MsSqlConnectionOptions> tvShowSettingsOptions)
     {
-        this.tvService = tvService;
+        this.filmService = filmService;
         this.tvShowSettings = tvShowSettingsOptions.Value;
     }
 
@@ -30,9 +30,11 @@ public class HomeController : Controller
     {
         //var service = new TVShowService();
 
-        var tv = await tvService.GetTvShowsAsync();
+        var repoJson = new FilmJsonFileRepository();
 
-        return View(tv);
+        var films = await repoJson.GetAllAsync();
+
+        return View(films);
     }
 
     public IActionResult Privacy()

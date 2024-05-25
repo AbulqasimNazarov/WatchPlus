@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TvSHow>
+﻿@model IEnumerable<Film>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -12,19 +12,19 @@
     </div>
 </div>
 
-@foreach (var tvShow in base.Model)
+@foreach (var film in base.Model)
 {
     <div class="card" style="display: inline-block; width: 18rem; margin-right: 20px;">
-        <img src="@tvShow.Image" class="card-img-top" alt="filmImage">
+        <img src="@film.Image" class="card-img-top" alt="filmImage">
         <div class="card-body">
-            <h2 class="card-title">@tvShow.Name</h2>
-            <p class="card-text">@tvShow.Description</p>
+            <h2 class="card-title">@film.Name</h2>
+            <p class="card-text">@film.Description</p>
             <p class="card-text">
-            <h6>Star: </h6><a href="https://ru.wikipedia.org/wiki/@tvShow.Star">@tvShow.Star</a>
+            <h6>Star: </h6><a href="https://ru.wikipedia.org/wiki/@film.Star">@film.Star</a>
             </p>
-            <button class="trailer-button btn btn-primary" data-trailer="@tvShow.VideoTrailer">Trailer</button>
+            <button class="trailer-button btn btn-primary" data-trailer="@film.TrailerVideo">Trailer</button>
             <br>
-            <div><a href="/TvShow/@tvShow.Name/@tvShow.Id">More>>></a></div>
+            <div><a href="/Film/@film.Name/@film.Id">More>>></a></div>
         </div>
     </div>
 }

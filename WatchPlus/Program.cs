@@ -1,5 +1,8 @@
 using ConfigurationApp.Options.Connections;
 using Microsoft.Extensions.Options;
+using WatchPlus.Middlewares;
+
+//using WatchPlus.Middlewares;
 using WatchPlus.Repositories;
 using WatchPlus.Repositories.Base;
 using WatchPlus.Services;
@@ -24,6 +27,9 @@ builder.Services.AddTransient<IFilmRepository, FilmJsonFileRepository>();
 builder.Services.AddScoped<ITvShowService, TVShowService>();
 builder.Services.AddTransient<ITVShowRepository, TvShowDapperRepository>();
 
+builder.Services.AddScoped<ILogService, LogService>();
+builder.Services.AddScoped<ILogRepository, LogDapperRepository>();
+
 
 
 builder.Services.AddScoped<ITvShowService>((serviceProvider) => {
@@ -46,6 +52,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.UseAuthorization();
 

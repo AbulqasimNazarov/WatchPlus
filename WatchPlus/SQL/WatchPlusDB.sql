@@ -13,13 +13,24 @@ create table TVShows(
 	[VideoTrailer] nvarchar(200) null
 )
 
-drop table TVShows
+create table Logs(
+	[Id] int primary key identity,
+	[Url] nvarchar(200) not null,
+	[RequestBody] nvarchar(200) not null, 
+	[ResponseBody] nvarchar(200) not null,
+	[CreationDate] DATETIME2 DEFAULT SYSDATETIME(),
+	[EndDate] DATETIME2 DEFAULT SYSDATETIME(),
+	[StatusCode] nvarchar(200) not null,
+	[HttpMethod] nvarchar(200) not null,
+)
 
+
+drop table Logs
 
 
 
 select * from TVShows
-
+select * from Logs
 
 INSERT INTO TVShows ([Name], [Description], [Category], [Star], [Rate], [Image], [VideoTrailer]) 
 VALUES (
