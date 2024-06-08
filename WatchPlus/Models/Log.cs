@@ -4,7 +4,7 @@ namespace WatchPlus.Models;
 
 public class Log
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string? Url { get; set; }
     public string? RequestBody { get; set; }
@@ -14,10 +14,7 @@ public class Log
     public string? StatusCode { get; set;}
     public string? HttpMethod { get; set;}
 
-    // public Log()
-    // {
-        
-    // }
+    
 }
 
 

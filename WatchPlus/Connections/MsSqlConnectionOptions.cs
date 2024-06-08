@@ -18,8 +18,7 @@ public class MsSqlConnectionOptions : IConnectionOptions
         {
             ArgumentException.ThrowIfNullOrEmpty(Database);
             ArgumentException.ThrowIfNullOrEmpty(Server);
-            // ArgumentException.ThrowIfNullOrEmpty(UserId);
-            // ArgumentException.ThrowIfNullOrEmpty(Password);
+            
 
             var connectionString = $"Server={this.Server};Database={this.Database};";
 

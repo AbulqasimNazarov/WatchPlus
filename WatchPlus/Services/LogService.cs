@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using WatchPlus.Models;
 using WatchPlus.Repositories.Base;
 using WatchPlus.Services.Base;
@@ -12,11 +13,11 @@ public class LogService : ILogService
     {
         this.logRepository = logRepository;
     }
-    public async Task CreateNewLogAsync(Log newLog)
+    public async Task CreateNewLogAsync([FromForm] Log newLog, IFormFile formFile)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(newLog.Url);
 
-        await this.logRepository.CreatableAsync(newLog);
+        await this.logRepository.CreatableAsync(newLog, null!);
     }
 
 }

@@ -58,3 +58,9 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+
+.header-menu {
+  display: flex;
+  justify-content: space-between;
+}

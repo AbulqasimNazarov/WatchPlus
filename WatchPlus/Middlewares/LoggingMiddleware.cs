@@ -38,7 +38,7 @@ public class LoggingMiddleware
                     StatusCode = httpContext.Response.StatusCode.ToString(),
                     HttpMethod = httpContext.Request.Method,
                 };
-                await logService.CreateNewLogAsync(logObj);
+                await logService.CreateNewLogAsync(logObj, null!);
                 System.Console.WriteLine(httpContext.Request.Path);
             }
         }

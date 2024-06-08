@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace WatchPlus.Repositories.Base;
 
 public interface ICreatableAsync<TEntity>
 {
-    Task CreatableAsync(TEntity obj);
+    public Task CreatableAsync(TEntity obj, IFormFile image);
 }

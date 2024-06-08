@@ -14,18 +14,20 @@ public class TVShowService : ITvShowService
     {
         this.tvShowRepository = tvShowRepository;
     }
-    public async Task CreateNewTvShowAsync(TvSHow newTvShow)
+    public async Task CreateNewTvShowAsync(TvSHow newTvShow, IFormFile image)
     {
         ArgumentNullException.ThrowIfNullOrEmpty(newTvShow.Name);
 
-        await this.tvShowRepository.CreatableAsync(newTvShow);
+        await this.tvShowRepository.CreatableAsync(newTvShow, image);
+    }
+
+    public void DeleteTvShowById(Guid id)
+    {
+        tvShowRepository.DeleteById(id);
     }
 
 
-    
-
-    
-    public async Task<TvSHow> GetTvShowAsync(int id)
+    public async Task<TvSHow> GetTvShowAsync(Guid id)
     {
         var tvShows = await this.tvShowRepository.GetAllAsync();
         if (tvShows != null)
@@ -41,7 +43,7 @@ public class TVShowService : ITvShowService
         throw new Exception("Not Found");
     }
 
-    public async Task<IEnumerable<TvSHow>> GetTvShowsAsync()
+    public async Task<IEnumerable<TvSHow>> GetAllTvShowsAsync()
     {
         return await this.tvShowRepository.GetAllAsync();
     }

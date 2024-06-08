@@ -15,7 +15,7 @@ public class LogDapperRepository : ILogRepository
     {
         this.connectionString = msSqlConnectionOptions.Value.ConnectionString;
     }
-    public async Task CreatableAsync(Log log)
+    public async Task CreatableAsync(Log log, IFormFile formFile = null!)
     {
         using var connection = new SqlConnection(connectionString);
         await connection.ExecuteAsync(

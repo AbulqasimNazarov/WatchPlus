@@ -6,9 +6,9 @@
 
 
 <h1>@base.Model.Name</h1>
-<img src="@base.Model.Image">
+<img src="/Film/Image/@base.Model.Id">
 <div>
-    <h3>Description: </h3>@base.Model.Description
+    <h3>Presentation: </h3>@base.Model.Presentation
 </div>
 <div>
     <h3>Star: </h3><a href="https://ru.wikipedia.org/wiki/@base.Model.Star">@base.Model.Star</a>
@@ -16,4 +16,17 @@
 <div>
     <h3>Category: </h3>@base.Model.Category
 </div>
+
+
+<div class=" d-flex justify-content-center mt-5">
+    <div class=" text-center mb-5">
+        <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input
+                type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating"
+                value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label
+                for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label> </div>
+
+        </div>
+    </div>
+</div>
+
 <iframe id="videoPlayer" src="@Model.TrailerVideo" width="50%" height="315" frameborder="0" allowfullscreen></iframe>
