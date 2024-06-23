@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 using ConfigurationApp.Options.Connections;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using WatchPlus.Models;
@@ -14,29 +15,32 @@ namespace WatchPlus.Controllers;
 public class HomeController : Controller
 {
     private readonly IFilmService filmsService;
-    
+    private readonly IUserService userService;
+   
 
-    public HomeController(IFilmService filmsService)
+
+    public HomeController(IFilmService filmsService, IUserService userService)
     {
         this.filmsService = filmsService;
+        this.userService = userService;
         
     }
 
 
     [HttpGet]
-
+    //[Route("/[controller]/[action]", Name = "HomePage")]
     public async Task<IActionResult> Index()
     {
-        var moviesEF = await filmsService.GetAllFilmsAsync();
+        var filmHighRate = await filmsService.GetFilmWithHighestRateAsync();
+        
 
-       
-        return View(moviesEF);
+        return View(filmHighRate);
     }
 
 
-    
 
-   
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

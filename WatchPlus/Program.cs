@@ -1,6 +1,8 @@
 using System.Reflection;
+using System.Security.Claims;
 using ConfigurationApp.Options.Connections;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WatchPlus.Data;
 using WatchPlus.Middlewares;
@@ -31,6 +33,22 @@ builder.Services.AddTransient<ITvShowService, TVShowService>();
 builder.Services.AddTransient<ITVShowRepository, TvShowEfRepository>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<ILogRepository, LogDapperRepository>();
+builder.Services.AddScoped<IUserRepository, UserEfRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => {
+        options.LoginPath = "/Identity/Login";
+});
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("WatchPlusPolicyWithRoles", policyBuilder =>
+    {
+        policyBuilder.RequireRole("Admin");
+    });
+
+});
+
 
 
 var app = builder.Build();
@@ -46,6 +64,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseMiddleware<LoggingMiddleware>();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

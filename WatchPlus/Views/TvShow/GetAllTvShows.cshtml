@@ -24,7 +24,7 @@
             </p>
             <button class="trailer-button btn btn-primary" data-trailer="@tvSHow.TrailerVideo">Trailer</button>
             <br>
-            <div><a href="/Film/@tvSHow.Name/@tvSHow.Id">More>>></a></div>
+            <div><a href="/TvSHow/@tvSHow.Name/@tvSHow.Id">More>>></a></div>
             <br/>
             <form asp-controller="TvShow" asp-action="DeleteTvShow" asp-route-id="@tvSHow.Id" method="post">
                 <input type="hidden" name="_method" value="DELETE" />

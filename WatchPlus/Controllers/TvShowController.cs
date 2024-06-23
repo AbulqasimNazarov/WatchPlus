@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WatchPlus.Models;
 using WatchPlus.Repositories.Base;
@@ -45,6 +46,7 @@ public class TvShowController : Controller
 
     [HttpPost]
     [Route("[controller]/{id}")]
+    
     public IActionResult DeleteTvShow(Guid id)
     {
         tvShowService.DeleteTvShowById(id);
@@ -57,6 +59,7 @@ public class TvShowController : Controller
 
     [HttpGet("[controller]")]
     // /TvShow/Index
+    [Authorize]
     public async Task<IActionResult> AddNewTvShow()
     {
         return View();
@@ -64,6 +67,7 @@ public class TvShowController : Controller
 
     [HttpPost]
     [Route("[controller]", Name ="AddTvShow")]
+    
     // POST: /tvShow
     public async Task<IActionResult> AddNewTvShow([FromForm] TvSHow newTvShow, IFormFile image)
     {

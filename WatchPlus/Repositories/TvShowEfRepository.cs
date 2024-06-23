@@ -43,11 +43,33 @@ namespace WatchPlus.Repositories
             return await dbContext.TvShows.ToListAsync();
         }
 
+       
+
         public async Task<TvSHow> GetByIdAsync(Guid id)
         {
             var tvShows = await this.GetAllAsync();
             var tvShow = tvShows?.FirstOrDefault(f => f.Id == id);
             return tvShow ?? throw new Exception("Not Found");
+        }
+
+        public Task<IEnumerable<Comment>> GetCommentsById(Guid filmId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<TvSHow>?> GetFilmsByNameAsync(string? name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TvSHow> GetFilmWithHighestRateAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> HasUserRatedFilmAsync(Guid filmId, Guid userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

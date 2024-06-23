@@ -2,7 +2,7 @@ using WatchPlus.Models;
 
 namespace WatchPlus.Repositories.Base;
 
-public interface IFilmRepository : IGetableAsync<Film>, ICreatableAsync<Film>, IDeletable
+public interface IFilmRepository : IGetableAsync<Film>, ICreatableAsync<Film>, IDeletable, IUpdateableAsync<Film>
 {
     
     

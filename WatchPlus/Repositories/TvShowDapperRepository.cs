@@ -39,7 +39,34 @@ public class TvShowDapperRepository : ITVShowRepository
         return await connection.QueryAsync<TvSHow>(@"select * from TVShows");
     }
 
+    public Task<double> GetAverageRatingAsync(Guid filmId)
+    {
+        throw new NotImplementedException();
+    }
+
+
     public Task<TvSHow> GetByIdAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Comment>> GetCommentsById(Guid filmId)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public Task<IEnumerable<TvSHow>?> GetFilmsByNameAsync(string? name)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<TvSHow> GetFilmWithHighestRateAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> HasUserRatedFilmAsync(Guid filmId, Guid userId)
     {
         throw new NotImplementedException();
     }

@@ -9,12 +9,10 @@
 <form asp-route="AddFilm" method="post" enctype="multipart/form-data">
 
     <div class="custom-file">
-        <label class="custom-file-label" for="customFile">Film Main Image</label>
-        <input name="Image" type="file" class="custom-file-input" id="customFile">
+        <label asp-for="Image" class="custom-file-label" for="customFile">Film Main Image</label>
+        <input asp-for="Image" type="file" class="custom-file-input" id="customFile">
         <span class="d-block text-danger" asp-validation-for="Image"></span>
     </div>
-
-
 
     <div class="form-group col-md-6">
         <label asp-for="Name" class="form-label">Name</label>
@@ -22,19 +20,10 @@
         <span class="d-block text-danger" asp-validation-for="Name"></span>
     </div>
 
-
-    <div class="col-auto my-1">
-      <label asp-for="presentationDate" class="mr-sm-2" for="inlineFormCustomSelect">Date of Presentation</label>
-      <select asp-for="presentationDate" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-        <option selected>Choose...</option>
-        <option value="1">2020</option>
-        <option value="2">2021</option>
-        <option value="3">2022</option>
-        <option value="3">2023</option>
-        <option value="3">2024</option>
-        <option value="3">2025</option>
-        <option value="3">2026</option>
-      </select>
+    <div class="form-group col-md-6">
+        <label asp-for="PresentationDate" class="form-label">Date of Presentation</label>
+        <input asp-for="PresentationDate" type="datetime-local" class="form-control" style="width: 519px;">
+        <span class="d-block text-danger" asp-validation-for="PresentationDate"></span>
     </div>
 
     <div class="form-group col-md-6">
@@ -60,14 +49,11 @@
             <option>Sci-Fi</option>
         </select>
     </div>
-        <span class="d-block text-danger" asp-validation-for="Category"></span>
+    <span class="d-block text-danger" asp-validation-for="Category"></span>
 
     <label asp-for="TrailerVideo" for="basic-url">Youtube Trailer URL</label>
     <input asp-for="TrailerVideo" type="text" class="form-control" id="inputCity" style="width: 519px;">
     <span class="d-block text-danger" asp-validation-for="TrailerVideo"></span>
-
-
-
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
