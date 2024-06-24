@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var IsAuthenticated = base.User.Identity?.IsAuthenticated ?? false;
+    var IsAdmin = base.User.IsInRole("Admin");
+    var nameCookie = base.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Name);
+
+    var username = nameCookie?.Value ?? "UNKNOWN";
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,25 +21,95 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="/Assets/IMG/WatchPlusLogo.png" alt="err" class="navbari">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" aria-current="page" asp-controller="Home"
+                                asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Film" asp-action="GetAllFilms">Films</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="TvShow" asp-action="GetAllTvShows">Tv
+                                Shows</a>
+                        </li>
+                        <form class="d-flex" asp-controller="Film" asp-action="GetFilmByName" method="get">
+                            <select class="form-select me-2" name="type">
+                                <option value="movie">Films</option>
+                                <option value="tvshow">Tv SHows</option>
+                            </select>
+                            <input class="form-control me-2" type="text" name="name" />
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
 
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Film">Add Film</a>
-                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        @if (IsAuthenticated)
+                        {
+                            @if (IsAdmin == false)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Welcome, @username 😍
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="Identity" asp-action="UserAccount">Account</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" asp-route="LogOut">Logout</a></li>
+                                    </ul>
+                                </li>
+
+
+                            }
+                            @if (IsAdmin)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="Film" asp-action="Index">Add new Film</a>
+                                        </li>
+                                        <li><a class="dropdown-item" asp-controller="TvShow" asp-action="Index">Add new Tv
+                                                Show</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" asp-route="AdminManage">Give Access</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" asp-route="LogOut">Logout</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-route="LoginView">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-route="RegistrationView">Registration</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -44,7 +123,9 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - WatchPlus - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - <a asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="/Assets/IMG/WatchPlusLogo.png" alt="err" class="navbari">
+            </a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
