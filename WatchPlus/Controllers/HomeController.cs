@@ -1,35 +1,46 @@
 using System.Diagnostics;
 using System.Text.Json;
+using ConfigurationApp.Options.Connections;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using WatchPlus.Models;
+using WatchPlus.Repositories;
+using WatchPlus.Repositories.Base;
+using WatchPlus.Services;
+using WatchPlus.Services.Base;
 
 namespace WatchPlus.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IFilmService filmsService;
+    private readonly IUserService userService;
+   
 
-    public HomeController(ILogger<HomeController> logger)
+
+    public HomeController(IFilmService filmsService, IUserService userService)
     {
-        _logger = logger;
+        this.filmsService = filmsService;
+        this.userService = userService;
+        
     }
 
 
     [HttpGet]
-
-    public IActionResult Index()
+    //[Route("/[controller]/[action]", Name = "HomePage")]
+    public async Task<IActionResult> Index()
     {
-        var repoJson = new JsonRepository();
+        var filmHighRate = await filmsService.GetFilmWithHighestRateAsync();
+        
 
-        var films = repoJson.GetAll("./Files/films.json");
-
-        return View(films);
+        return View(filmHighRate);
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+
+
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
