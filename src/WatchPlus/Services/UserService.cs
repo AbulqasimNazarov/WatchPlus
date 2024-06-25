@@ -29,6 +29,9 @@ public class UserService : IUserService
     public async Task<User> GetUserByIdAsync(Guid id)
     {
         var user = await this.userRepository.GetByIdAsync(id);
+        if (user == null){
+            throw new ArgumentNullException("User not found");
+        }
         return user;
     }
     public async Task<User> GetUserByEmailAsync(string? email)
