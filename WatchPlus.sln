@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E7ED2D1E-C79A-4274-B545-7D6AB642A8B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchPlus", "src\WatchPlus\WatchPlus.csproj", "{E0999136-1DF1-45C1-B712-39C7A09E958D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{71E78FB6-57F3-4E97-A6A8-5CD498C515E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchPlus.UnitTests", "test\WatchPlus.UnitTests\WatchPlus.UnitTests.csproj", "{6EB0A5B2-6540-4AB3-942C-FC8AE5C54812}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0999136-1DF1-45C1-B712-39C7A09E958D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0999136-1DF1-45C1-B712-39C7A09E958D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0999136-1DF1-45C1-B712-39C7A09E958D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0999136-1DF1-45C1-B712-39C7A09E958D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EB0A5B2-6540-4AB3-942C-FC8AE5C54812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EB0A5B2-6540-4AB3-942C-FC8AE5C54812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EB0A5B2-6540-4AB3-942C-FC8AE5C54812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EB0A5B2-6540-4AB3-942C-FC8AE5C54812}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E0999136-1DF1-45C1-B712-39C7A09E958D} = {E7ED2D1E-C79A-4274-B545-7D6AB642A8B9}
+		{6EB0A5B2-6540-4AB3-942C-FC8AE5C54812} = {71E78FB6-57F3-4E97-A6A8-5CD498C515E9}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,61 @@
+@model User
+
+@{
+    ViewData["Title"] = "Moderator Manage";
+
+
+}
+
+
+<div style="width: 1140px; margin: 0 auto">
+    <div style="margin-top: 30px;">
+        <div
+            style="padding-top: 30px;height: 600px;background-image: url('/Assets/IMG/AdminManageImg1.png');background-repeat: no-repeat;background-position: left 0px top 0%;">
+            <div style="width: 500px; margin-left: 600px">
+
+                <form class="d-flex" asp-route="ModeratorManage" method="get">
+                    <input class="form-control me-2" type="email" name="email" placeholder="Email" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                @if (base.Model != null)
+                {
+                    <div class="card mb-3" style="max-width: 540px; margin-top: 30px">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="/Identity/Image/@base.Model.Id" class="img-fluid rounded-start" alt="error">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div style="display: flex;">
+                                        <h5 class="card-title" style="margin-right: 8px;">@base.Model.Name</h5>
+                                        <h5 class="card-title">@base.Model.Surname</h5>
+                                    </div>
+                                    @if (base.Model.Email != "admin@gmail.com" && base.Model.Role != "Moderator")
+                                    {
+
+                                        <form action="/Identity/IgnoreUser" method="post">
+                                            <input type="hidden" name="email" value="@base.Model.Email" />
+
+                                            <button type="submit" class="btn btn-primary mt-2" style="background-color: rgb(160, 45,
+                                45);">Add Ignore List</button>
+                                        </form>
+
+
+                                    }
+                                    else if (base.Model.Role == "Moderator")
+                                    {
+                                        <h3 style="color: rgb(48, 48, 186);">Moderator✔️</h3>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+    @* <img src="/Assets/IMG/AdminManage.jpg" alt="err" style="max-width: 100%; height: auto;"> *@
+</div>
