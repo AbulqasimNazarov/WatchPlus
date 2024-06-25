@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    justify-content: flex-start; /* Выравнивание по левому краю */
+    align-items: flex-start;     /* Выравнивание по верхнему краю */
+}
+
+.text-center {
+    text-align: center;
+    flex: 1; /* Занимает все доступное пространство */
+}
+
+.film-with-rate {
+    margin-top: 25px;
+}
+
+.film-image-background{
+    background-repeat: no-repeat;
+    background-position: left 0px top 0%;
+    background-size: cover;
+    background-attachment: scroll;
+
+}
+
+
+
+.video {
+    width: 100%;
+    max-width: 600px;
+    height: 315px; 
+    margin-right: auto; 
+}
+
+.film-name {
+    font-family: 'Montserrat-Medium';
+    font-size: 30px;
+}
+
+/* .film-image-background{
+    background-image: url(@base.Model.Image);
+    height: 150px;
+} */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px; /* Ограничиваем максимальную ширину модального окна */
+    position: relative; /* Добавляем позиционирование относительно */
+}
+
+/* Стили для кнопки закрытия модального окна */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}

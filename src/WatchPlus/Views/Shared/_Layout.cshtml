@@ -1,0 +1,143 @@
+﻿@{
+    var IsAuthenticated = base.User.Identity?.IsAuthenticated ?? false;
+    var IsAdmin = base.User.IsInRole("Admin");
+    var IsModerator = base.User.IsInRole("Moderator");
+    var nameCookie = base.User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Name);
+
+    var username = nameCookie?.Value ?? "UNKNOWN";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WatchPlus</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WatchPlus.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="/Assets/IMG/WatchPlusLogo.png" alt="err" class="navbari">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" aria-current="page" asp-controller="Home"
+                                asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Film" asp-action="GetAllFilms">Films</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="TvShow" asp-action="GetAllTvShows">Tv
+                                Shows</a>
+                        </li>
+                        <form class="d-flex" asp-controller="Film" asp-action="GetFilmByName" method="get">
+                            <select class="form-select me-2" name="type">
+                                <option value="movie">Films</option>
+                                <option value="tvshow">Tv SHows</option>
+                            </select>
+                            <input class="form-control me-2" type="text" name="name" />
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+
+
+                    </ul>
+
+                    <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        @if (IsAuthenticated)
+                        {
+                            @if (IsAdmin == false)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Welcome, @username 😍
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="Identity" asp-action="UserAccount">Account</a>
+                                        </li>
+                                        @if(IsModerator){
+                                            <li><a class="dropdown-item" asp-route="ModeratorManage">Manage Users</a></li>
+                                        }
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" asp-route="LogOut">Logout</a></li>
+                                    </ul>
+                                </li>
+
+
+                            }
+                            @if (IsAdmin)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-controller="Film" asp-action="Index">Add new Film</a>
+                                        </li>
+                                        <li><a class="dropdown-item" asp-controller="TvShow" asp-action="Index">Add new Tv
+                                                Show</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" asp-controller="Identity" asp-action="UserAccount">Account</a>
+                                        </li>
+                                        <li><a class="dropdown-item" asp-route="AdminManage">Give Access</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" asp-route="LogOut">Logout</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-route="LoginView">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-route="RegistrationView">Registration</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - <a asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="/Assets/IMG/WatchPlusLogo.png" alt="err" class="navbari">
+            </a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

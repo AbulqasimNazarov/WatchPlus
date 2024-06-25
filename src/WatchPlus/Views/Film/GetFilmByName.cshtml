@@ -1,0 +1,35 @@
+@model IEnumerable<Film>
+
+
+@{
+    ViewData["Title"] = "Get Film By Name";
+    var IsAdmin = User.IsInRole("Admin");
+}
+<div class="founded"></div>
+
+<div style="width: 1140px; margin: 0 auto">
+    @foreach (var film in base.Model)
+    {
+        <div class="card" style="display: inline-block; width: 18rem; margin-right: 20px;">
+            <img src="/Film/Image/@film.Id" class="card-img-top" alt="filmImage">
+            <div class="card-body">
+                <h2 class="card-title">@film.Name</h2>
+
+                <br>
+                <form asp-controller="Film" asp-action="InfoAboutFilmAsync" asp-route-id="@film.Id" method="get">
+                    <input type="hidden" name="_method" value="INFO" />
+                    <button type="submit" class="btn btn-warning"
+                        style="margin-top: 50px; margin-bottom:50px; width: 150px; border-radius: 10px; background-color: rgb(235, 235, 98);">Info</button>
+                </form>
+                <br />
+                @if (IsAdmin)
+                {
+                    <form asp-controller="Film" asp-action="DeleteFilm" asp-route-id="@film.Id" method="post">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>
