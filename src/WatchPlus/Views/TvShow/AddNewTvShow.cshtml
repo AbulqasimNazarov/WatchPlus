@@ -1,0 +1,83 @@
+<div style="width: 1140px; margin: 0 auto;">
+    <img src="/Assets/IMG/under_construction.png" alt="error" style="max-width: 100%; height: auto;">
+</div>
+
+@* @model TvSHow
+
+@{
+    ViewData["Title"] = "Create new Tv Show";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-route="AddTvShow" method="post" enctype="multipart/form-data">
+
+    <div class="custom-file">
+        <label class="custom-file-label" for="customFile">Film Main Image</label>
+        <input name="Image" type="file" class="custom-file-input" id="customFile">
+        <span class="d-block text-danger" asp-validation-for="Image"></span>
+    </div>
+
+
+
+    <div class="form-group col-md-6">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" style="width: 519px;">
+        <span class="d-block text-danger" asp-validation-for="Name"></span>
+    </div>
+
+
+    <div class="col-auto my-1">
+      <label asp-for="presentationDate" class="mr-sm-2" for="inlineFormCustomSelect">Date of Presentation</label>
+      <select asp-for="presentationDate" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        <option selected>Choose...</option>
+        <option value="1">2020</option>
+        <option value="2">2021</option>
+        <option value="3">2022</option>
+        <option value="3">2023</option>
+        <option value="3">2024</option>
+        <option value="3">2025</option>
+        <option value="3">2026</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-6">
+        <label asp-for="Star" class="form-label">Star Name and Surname</label>
+        <input asp-for="Star" class="form-control" style="width: 519px;">
+        <span class="d-block text-danger" asp-validation-for="Star"></span>
+    </div>
+
+    <div class="form-group col-md-6">
+        <label asp-for="Presentation" class="form-label">Presentation</label>
+        <textarea class="form-control" asp-for="Presentation" style="width: 519px;" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <span class="d-block text-danger" asp-validation-for="Presentation"></span>
+    </div>
+
+    <div class="form-group" style="width: 650px;">
+        <label asp-for="Category" for="exampleFormControlSelect2">Example multiple select</label>
+        <select asp-for="Category" multiple class="form-control" id="exampleFormControlSelect2" style="width: 519px;">
+            <option>Action</option>
+            <option>Comedy</option>
+            <option>Drama</option>
+            <option>Horror</option>
+            <option>Romance</option>
+            <option>Sci-Fi</option>
+        </select>
+    </div>
+        <span class="d-block text-danger" asp-validation-for="Category"></span>
+
+    <label asp-for="TrailerVideo" for="basic-url">Youtube Trailer URL</label>
+    <input asp-for="TrailerVideo" type="text" class="form-control" id="inputCity" style="width: 519px;">
+    <span class="d-block text-danger" asp-validation-for="TrailerVideo"></span>
+
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<style>
+    .form-row {
+        max-width: 600px;
+    }
+</style> *@
